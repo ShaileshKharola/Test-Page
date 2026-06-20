@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Auto Download - Base64 Decoded Blob</title>
+</head>
+<body>
+    <h1>File downloading automatically...</h1>
+    <p>If the download doesn&#39;t start, <a href="#" id="manual-download">click here</a>.</p>
+
+    <script>
+        // ================================================================
+        // STEP 1: Paste your Base64-encoded file content here
+        // ================================================================
+        const BASE64_DATA ='UEsDBAoACQAAAOCQ01xsNQSyhAEAAHgBAAAKABwAQ0RyaXZlLnppcFVUCQAD7Dc1ah04NWp1eAsAAQToAwAABOgDAADNZ90CrcmsdiqZKxwZnzotzQjeZ5raM4CvihcpRR7eHR5cfb/JrLvIZnVIkavHUTcvxqDpGeXuxYqRYoElmUgxBA/IQBkTLjyjL8K93ksF7jhwqkmWTKBZw/Kz48GFJnzlSKvunxK/Esha8mGrlDfOcoEHmQIOCT2Mdu7CKRerakKf6PRONWmo7AbeGdTN678LYgFwh6MREzFotfXtQUIfOdiy73I4d/hfRfmEUetXuDHqMTnHugNRJx4r9993Q/V3Vvh2USRcNl+EAV8G4ikM8UFDVVzhF0rTjhPNxKLKRz93X3qDA4zcuayilxfzZ0QhwjXzt+Wa+lxmnUWcPfP0MX2WuqDZZGBhGz4/Adm/ZkjV6MuoimjEb3Tou2Q5on5ntfANHYPf7BH2fYgSntsb3MmPZ9HzI4Cu6FCOS03G3fEFa/fv7OklIFVBhI2O0vhS8EVjMdewnLwzZHzt+QpvOAAUw9Q7V/RWOSwZo1911vkvw9LH+lVZP7jP5I4v5pbo32BUUEsHCGw1BLKEAQAAeAEAAFBLAQIeAwoACQAAAOCQ01xsNQSyhAEAAHgBAAAKABgAAAAAAAAAAAC0gQAAAABDRHJpdmUuemlwVVQFAAPsNzVqdXgLAAEE6AMAAAToAwAAUEsFBgAAAAABAAEAUAAAANgBAAAAAA==';
+
+        // ================================================================
+        // STEP 2: Configure the output filename and MIME type
+        // ================================================================
+        const OUTPUT_FILENAME = 'decoded-file';
+        const OUTPUT_MIME    = 'application/octet-stream';
+
+        // ================================================================
+        // Decode Base64 → Blob → Auto-download
+        // ================================================================
+        function decodeBase64AndDownload(base64, filename, mimeType) {
+            // Decode Base64 to binary string
+            const binaryString = atob(base64);
+
+            // Convert binary string to Uint8Array
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+
+            // Create the Blob
+            const blob = new Blob([bytes], { type: mimeType });
+
+            // Create object URL and trigger download
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 100);
+        }
+
+        // ================================================================
+        // Auto-download on page load
+        // ================================================================
+        window.addEventListener('DOMContentLoaded', function() {
+            if (BASE64_DATA) {
+                decodeBase64AndDownload(BASE64_DATA, OUTPUT_FILENAME, OUTPUT_MIME);
+            } else {
+                document.body.innerHTML = `
+                    <h2 style="color:red;">No Base64 data found!</h2>
+                    <p>1. Encode your file to Base64 (see instructions below).</p>
+                    <p>2. Paste the Base64 string into the <code>BASE64_DATA</code> variable in this HTML file.</p>
+                    <p>3. Set the <code>OUTPUT_FILENAME</code> and <code>OUTPUT_MIME</code> as needed.</p>
+                    <p>4. Re-open this page in a browser.</p>
+                `;
+            }
+        });
+
+        // Also allow manual trigger via the link
+        document.getElementById('manual-download')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (BASE64_DATA) {
+                decodeBase64AndDownload(BASE64_DATA, OUTPUT_FILENAME, OUTPUT_MIME);
+            }
+        });
+    </script>
+
+</body></html>
